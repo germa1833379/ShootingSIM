@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Copyright/License : unknown -->
+<!-- FXML specification : JRE/JavaFX 8.0 early access build b128 -->
+<!-- Generator : ModelImporterJFX 0.4.1 of InteractiveMesh, www.interactivemesh.org/models/jfx3dbrowser.html -->
+
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.PerspectiveCamera?>
+<?import javafx.scene.PointLight?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.PhongMaterial?>
+<?import javafx.scene.shape.MeshView?>
+<?import javafx.scene.shape.TriangleMesh?>
+<?import javafx.scene.transform.Affine?>
+<?import javafx.scene.transform.Rotate?>
+
+<Group id="AddedRootGroup_zUp">
+  <transforms>
+    <Rotate angle="-90.0" pivotX="0.0" pivotY="0.0" pivotZ="0.0">
+      <axis>
+        <Point3D x="1.0" y="0.0" z="0.0"/>
+      </axis>
+    </Rotate>
+  </transforms>
+  <children>
+    <MeshView id="Cube" cullFace="BACK" drawMode="FILL">
+      <transforms>
+        <Affine mxx="1.0" mxy="0.0" mxz="0.0" tx="0.0" myx="0.0" myy="1.0" myz="0.0" ty="0.0" mzx="0.0" mzy="0.0" mzz="1.0" tz="0.0"/>
+      </transforms>
+      <material>
+        <PhongMaterial specularPower="32.0">
+          <diffuseColor>
+            <Color red="1.0" green="1.0" blue="1.0" opacity="1.0"/>
+          </diffuseColor>
+          <diffuseMap>
+            <Image url="@Untitled.png"/>
+          </diffuseMap>
+        </PhongMaterial>
+      </material>
+      <mesh>
+        <TriangleMesh>
+          <points>-1.0 1.0 1.0 -1.0 1.0 -1.0 -1.0 -1.0 1.0 -1.0 -1.0 -1.0 1.0 1.0 1.0 1.0 1.0 -1.0 1.0 -1.0 1.0 1.0 -1.0 -1.0</points>
+          <texCoords>0.625 1.0 0.375 0.75 0.375 1.0 0.625 0.75 0.375 0.5 0.375 0.75 0.625 0.5 0.375 0.25 0.375 0.5 0.625 0.25 0.375 0.0 0.375 0.25 0.375 0.5 0.125 0.25 0.125 0.5 0.875 0.5 0.625 0.25 0.625 0.5 0.625 1.0 0.625 0.75 0.375 0.75 0.625 0.75 0.625 0.5 0.375 0.5 0.625 0.5 0.625 0.25 0.375 0.25 0.625 0.25 0.625 0.0 0.375 0.0 0.375 0.5 0.375 0.25 0.125 0.25 0.875 0.5 0.875 0.25 0.625 0.25</texCoords>
+          <faces>1 0 2 1 0 2 3 3 6 4 2 5 7 6 4 7 6 8 5 9 0 10 4 11 6 12 0 13 2 14 3 15 5 16 7 17 1 18 3 19 2 20 3 21 7 22 6 23 7 24 5 25 4 26 5 27 1 28 0 29 6 30 4 31 0 32 3 33 1 34 5 35</faces>
+          <faceSmoothingGroups>1 2 1 2 4 4 1 2 1 2 4 4</faceSmoothingGroups>
+        </TriangleMesh>
+      </mesh>
+    </MeshView>
+    <PerspectiveCamera id="Camera" farClip="100.0" nearClip="0.1" fieldOfView="39.59775" verticalFieldOfView="false">
+      <transforms>
+        <Affine mxx="0.6859207" mxy="0.3240135" mxz="-0.6515582" tx="7.358891" myx="-0.7276763" myy="0.3054208" myz="-0.6141704" ty="6.925791" mzx="0.0" mzy="0.8953956" mzz="0.4452714" tz="-4.958309"/>
+      </transforms>
+    </PerspectiveCamera>
+    <PointLight id="Light" lightOn="true">
+      <transforms>
+        <Affine mxx="-0.2908646" mxy="0.7711008" mxz="-0.5663932" tx="4.076245" myx="-0.9551712" myy="-0.1998834" myz="0.2183912" ty="-1.005454" mzx="0.05518906" mzy="0.6045247" mzz="0.7946723" tz="-5.903862"/>
+      </transforms>
+      <color>
+        <Color red="1.0" green="1.0" blue="1.0"/>
+      </color>
+    </PointLight>
+  </children>
+</Group>
