@@ -1,27 +1,24 @@
 import javafx.fxml.FXMLLoader;
-import javafx.scene.AmbientLight;
 import javafx.scene.Group;
-import javafx.scene.PointLight;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 
 public class Scenery {
     private Group root;
-
+    private static Button graph= new Button();
     public Scenery() {
+
         try {
             this.root = new Group();
 
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(this.getClass().getResource("ground%20(1).fxml"));
+            fxmlLoader.setLocation(this.getClass().getResource("Objects/ground.fxml"));
             MeshView sol = fxmlLoader.<MeshView>load();
 
             Group[] panneaux = new Group[45];
@@ -30,7 +27,7 @@ public class Scenery {
             root.getChildren().add(sol);
             for (int i = 0; i < panneaux.length; i++) {
                 FXMLLoader fxmlLoader2 = new FXMLLoader();
-                fxmlLoader2.setLocation(this.getClass().getResource("panel.fxml"));
+                fxmlLoader2.setLocation(this.getClass().getResource("Objects/panel.fxml"));
                 panneaux[i] = fxmlLoader2.<Group>load();
                 panneaux[i].setScaleX(0.5);
                 panneaux[i].setScaleY(0.5);
@@ -52,7 +49,7 @@ public class Scenery {
 
             Group cible;
             FXMLLoader fxmlLoader3 = new FXMLLoader();
-            fxmlLoader3.setLocation(this.getClass().getResource("cible(1).fxml"));
+            fxmlLoader3.setLocation(this.getClass().getResource("Objects/cible.fxml"));
             cible = fxmlLoader3.<Group>load();
 
             cible.setTranslateX(1277);
@@ -68,7 +65,7 @@ public class Scenery {
             Group[] boutons = new Group[8];
             for (int i = 0; i < boutons.length; i++) {
                 FXMLLoader fxmlLoader2 = new FXMLLoader();
-                fxmlLoader2.setLocation(this.getClass().getResource("panel.fxml"));
+                fxmlLoader2.setLocation(this.getClass().getResource("Objects/panel.fxml"));
                 Label label=new Label(Integer.toString(i));
                 boutons[i] = fxmlLoader2.<Group>load();
                 boutons[i].setScaleX(0.1);
@@ -156,6 +153,15 @@ public class Scenery {
             light.setTranslateZ(-1600);
             root.getChildren().add(light);
             root.getChildren().add(new AmbientLight(Color.WHITE));*/
+
+
+            graph.setTranslateX(2000);
+            graph.setTranslateY(1200);
+            graph.setScaleX(2);
+            graph.setScaleY(2);
+            graph.setText("Afficher la trajectoire");
+
+            root.getChildren().add(graph);
         } catch (Exception e) {
 
         }
@@ -163,5 +169,8 @@ public class Scenery {
 
     public Group getScene() {
         return root;
+    }
+    public static Button getChartButton(){
+        return graph;
     }
 }
