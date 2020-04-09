@@ -79,15 +79,6 @@ public class main extends Application {
             lastHeight+=temp;
         }
         System.out.println(currYSpeed);
-        /*double tpm=(1.0/(currentBullet.getSpeed()*Math.cos(currentGun.getAngleY()/180))); //TIME PER METRE
-        System.out.println(Double.toString(tpm));
-        double temp;
-        double lastHeight=-0.2f;
-        for(int i=0;i<distanceMax;i++){
-            temp=tpm*tpm*-9.8*1/2;
-            series.getData().add(new XYChart.Data(i+1,temp+lastHeight));
-            lastHeight+=temp;
-        }*/
         return series;
     }
 }
