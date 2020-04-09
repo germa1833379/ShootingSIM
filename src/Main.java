@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class main extends Application {
+public class Main extends Application {
     ArrayList<XY> trajectoire = new ArrayList<>();
     public static void main(String[] args) {
         launch(args);
