@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class main extends Application {
-    ArrayList<XY> grosFunSale = new ArrayList<>();
+    ArrayList<XY> trajectoire = new ArrayList<>();
     public static void main(String[] args) {
         launch(args);
     }
@@ -25,27 +25,22 @@ public class main extends Application {
         NumberAxis xAxis = new NumberAxis();xAxis.labelProperty().setValue("Distance");
         NumberAxis yAxis = new NumberAxis();yAxis.labelProperty().setValue("Height");
 
-        Target currTarget=new Target(0.5f,0.3f,0.4f,100);
+        Target currTarget=new Target(1,1,100);
 
-        XYChart.Series trajectory= getChart(1000,currBullet,currGun);
+        XYChart.Series trajectoireChart= getChart(1000,currBullet,currGun);
         LineChart<Number,Number> chart = new LineChart<Number,Number>(xAxis,yAxis);
-        chart.getData().addAll(trajectory);
+        chart.getData().addAll(trajectoireChart);
 
         boolean targetHit=false;
 
-        for(int i=0;i<trajectory.getData().size()-1;i++){
-            if(currTarget.isHit(
-                    grosFunSale.get(i+1).getX(),
-                    grosFunSale.get(i+1).getY(),
-                    grosFunSale.get(i).getX(),
-                    grosFunSale.get(i).getY())){
+        for(int i=0;i<trajectoireChart.getData().size()-1;i++){
+            currTarget.isHit(
+                    trajectoire.get(i+1).getX(),
+                    trajectoire.get(i+1).getY(),
+                    trajectoire.get(i).getX(),
+                    trajectoire.get(i).getY());
+        }
 
-                targetHit=true;
-            }
-        }
-        if(targetHit){
-            System.out.println("Jaime les penis la target a ete toucher");
-        }
 
 
         Scene scene = new Scene(chart,1920,1080);
@@ -70,7 +65,7 @@ public class main extends Application {
         float currYSpeed=(float)(Math.sin(Math.toRadians(currentGun.getAngleY()))*currentBullet.getSpeed());
 
         series.getData().add(new XYChart.Data(0,startHeight));
-        grosFunSale.add(new XY(0,startHeight));
+        trajectoire.add(new XY(0,startHeight));
 
         double timeElapsed = 0;
         for(int i=0;i<distanceMax;i++){
@@ -79,7 +74,7 @@ public class main extends Application {
             double temp=currYSpeed*timeElapsed-(0.5*9.8*timeElapsed*timeElapsed);
 
             series.getData().add(new XYChart.Data(i+1,temp+startHeight));
-            grosFunSale.add(new XY((double)i+1,temp+startHeight));
+            trajectoire.add(new XY((double)i+1.0,temp+startHeight));
 
             lastHeight+=temp;
         }
