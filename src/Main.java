@@ -23,47 +23,13 @@ public class Main extends Application {
         double sceneWidth=1285;
 
         try {
-            Group root=new Group();
+            Scenery scenery=new Scenery();
+            Group root=scenery.getScene();
             Scene scene = new Scene(root);
-
-
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(this.getClass().getResource("ground%20(1).fxml"));
-            MeshView sol = fxmlLoader.<MeshView>load();
-
-            Group[] panneaux=new Group[45];
-
-
-            root.getChildren().add(sol);
-            for (int i=0;i<panneaux.length;i++){
-                FXMLLoader fxmlLoader2 = new FXMLLoader();
-                fxmlLoader2.setLocation(this.getClass().getResource("panel.fxml"));
-                panneaux[i]=fxmlLoader2.<Group>load();
-                panneaux[i].setScaleX(0.1);
-                panneaux[i].setScaleY(0.1);
-                panneaux[i].setScaleZ(0.1);
-                panneaux[i].setRotationAxis(Rotate.Y_AXIS);
-                panneaux[i].setRotate(90);
-                panneaux[i].setTranslateX(1280);
-                panneaux[i].setTranslateY(717.5);
-                panneaux[i].setTranslateZ(-2074+50*i);
-                root.getChildren().add(panneaux[i]);
-            }
-
-            Group cible;
-            FXMLLoader fxmlLoader3 = new FXMLLoader();
-            fxmlLoader3.setLocation(this.getClass().getResource("cible.fxml"));
-            cible=fxmlLoader3.<Group>load();
-
-            cible.setTranslateX(1270);
-            cible.setTranslateY(700);
-            cible.setTranslateZ(-2000);
-            cible.setScaleX(10);
-            cible.setScaleY(10);
-            cible.setScaleZ(10);
-            cible.setRotationAxis(Rotate.Y_AXIS);
-            cible.setRotate(90);
-            root.getChildren().add(cible);
+            root.setOnMouseClicked(event -> {
+                camera.setTranslateZ(camera.getTranslateZ()+0.01);
+                camera.setTranslateZ(camera.getTranslateZ()-0.01);
+            });
 
 
 
@@ -74,21 +40,31 @@ public class Main extends Application {
 
 
 
-            Material material = new PhongMaterial();
 
-            ((PhongMaterial) material).setSpecularColor(Color.rgb(30, 30, 30));
-            sol.setMaterial(material);
-            Rotate rotateX=new Rotate(270,Rotate.X_AXIS);
-            Rotate rotateY=new Rotate(90,Rotate.Z_AXIS);
-            sol.getTransforms().addAll(rotateX,rotateY);
 
-            sol.setTranslateX(1280);
-            sol.setTranslateY(720);
-            sol.setTranslateZ(-2100);
 
-            sol.setScaleX(1);
-            sol.setScaleY(1);
-            sol.setScaleZ(1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             scene.setFill(Color.SKYBLUE);
             scene.setOnKeyPressed(event -> {
@@ -138,12 +114,7 @@ public class Main extends Application {
                 }
             });
             scene.setCamera(camera);
-            PointLight light = new PointLight(Color.WHITE);
-            light.setTranslateX(0);
-            light.setTranslateY(-3000);
-            light.setTranslateZ(-1600);
-            root.getChildren().add(light);
-           root.getChildren().add(new AmbientLight(Color.WHITE));
+
 
             scene.widthProperty().addListener((observable, oldValue, newValue) -> {
                 root.setTranslateX(scene.getWidth());
