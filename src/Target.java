@@ -6,26 +6,23 @@ public class Target {
         targetX=x;
     }
     public boolean isHit(double x,double y,double prevX,double prevY){
-        double hitPoint=0.0;
-        String errorMsg= "Pas touché ";
-        String hitMsg= "Touché ";
         if(prevX<targetX&&targetX<=x) {
+
             if(targetX==x){
                 if(height-widht<y&&y<height+widht){
-                    System.out.println(hitMsg + y);
+                    System.out.println("Touché "+y);
+                    return true;
                 }else
-                    System.out.println(errorMsg);
-            }else {
-                double hity, hitx;
+                    System.out.println("Pas touché");
+            }else if(prevX<targetX&&targetX<x){
                 double tv = (y - prevY) / (x - prevX);
-                double distanceToApprox = x - prevX - x - targetX;
-                hity=distanceToApprox * tv + prevY;
-                if (height - widht < hity && hity < height + widht) {
-                    System.out.println(hitMsg+ hity);
+                double hity = prevY+tv*(x-prevX-x-targetX);
+                if(height-widht<hity&&hity<height+widht){
+                    System.out.println("Touché "+y);
+                    return true;
                 }else
-                    System.out.println(errorMsg);
+                    System.out.println("Pas touché");
             }
-
         }
         return false;
     }

@@ -27,25 +27,20 @@ public class main extends Application {
 
         Target currTarget=new Target(1,1,100);
 
-        XYChart.Series trjtChart= getChart(1000,currBullet,currGun);
+        XYChart.Series trajectoireChart= getChart(1000,currBullet,currGun);
         LineChart<Number,Number> chart = new LineChart<Number,Number>(xAxis,yAxis);
-        chart.getData().addAll(trjtChart);
+        chart.getData().addAll(trajectoireChart);
 
         boolean targetHit=false;
 
-        for(int i=0;i<trjtChart.getData().size()-1;i++){
-            if(currTarget.isHit(
+        for(int i=0;i<trajectoireChart.getData().size()-1;i++){
+            currTarget.isHit(
                     trajectoire.get(i+1).getX(),
                     trajectoire.get(i+1).getY(),
                     trajectoire.get(i).getX(),
-                    trajectoire.get(i).getY())){
+                    trajectoire.get(i).getY());
+        }
 
-                targetHit=true;
-            }
-        }
-        if(targetHit){
-            System.out.println("Jaime les penis la target a ete toucher");
-        }
 
 
         Scene scene = new Scene(chart,1920,1080);
