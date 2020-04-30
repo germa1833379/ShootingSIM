@@ -15,6 +15,7 @@ import java.util.Vector;
 
 public class Main extends Application {
     ArrayList<XY> trajectoire = new ArrayList<>();
+    public static float hitHeight;
     public static void main(String[] args) {
         launch(args);
     }
@@ -56,7 +57,7 @@ public class Main extends Application {
         NumberAxis xAxis = new NumberAxis();xAxis.labelProperty().setValue("Distance");
         NumberAxis yAxis = new NumberAxis();yAxis.labelProperty().setValue("Height");
 
-        Target currTarget=new Target(1,1,100);
+        Target currTarget=new Target(0.5f,1,100);
 
         XYChart.Series trajectoireChart= getChart(1000,currBullet,currGun);
         LineChart<Number,Number> chart = new LineChart<Number,Number>(xAxis,yAxis);
@@ -91,7 +92,6 @@ public class Main extends Application {
 
         float startHeight=1;
         double tpmx=(1.0/(currentBullet.getSpeed()*Math.cos(Math.toRadians(currentGun.getAngleY())))); //TIME PER METRE X
-
         float lastHeight=startHeight;
         float currYSpeed=(float)(Math.sin(Math.toRadians(currentGun.getAngleY()))*currentBullet.getSpeed());
 
@@ -101,7 +101,12 @@ public class Main extends Application {
         double timeElapsed = 0;
         for(int i=0;i<distanceMax;i++){
              timeElapsed += tpmx;
-            double temp=currYSpeed*timeElapsed-(0.5*9.8*timeElapsed*timeElapsed);
+            //Force en descendant
+            float Yforce=9.8f;
+            double temp=currYSpeed*timeElapsed-(0.5*Yforce*timeElapsed*timeElapsed);
+
+
+
 
             series.getData().add(new XYChart.Data(i+1,temp+startHeight));
             trajectoire.add(new XY((double)i+1.0,temp+startHeight));

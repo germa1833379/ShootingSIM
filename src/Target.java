@@ -19,6 +19,7 @@ public class Target {
                 double hity = prevY+tv*(x-prevX-x-targetX);
                 if(height-widht<hity&&hity<height+widht){
                     System.out.println("Touché "+y);
+                    Main.hitHeight=(float)hity;
                     return true;
                 }else
                     System.out.println("Pas touché");
