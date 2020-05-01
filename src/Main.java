@@ -50,38 +50,49 @@ public class Main extends Application {
             camera.setTranslateZ(-36+(2.865*(scene.getHeight()-721)));
             camera.setTranslateY(1079.5+(scene.getHeight()-721)/2);
         });
-
-        Gun currGun = new Gun();
-        Bullet currBullet=new Bullet();
-
-        NumberAxis xAxis = new NumberAxis();xAxis.labelProperty().setValue("Distance");
-        NumberAxis yAxis = new NumberAxis();yAxis.labelProperty().setValue("Height");
-
-        Target currTarget=new Target(0.5f,1,100);
-
-        XYChart.Series trajectoireChart= getChart(1000,currBullet,currGun);
-        LineChart<Number,Number> chart = new LineChart<Number,Number>(xAxis,yAxis);
-        chart.getData().addAll(trajectoireChart);
-
-
-        for(int i=0;i<trajectoireChart.getData().size()-1;i++){
-            currTarget.isHit(
-                    trajectoire.get(i+1).getX(),
-                    trajectoire.get(i+1).getY(),
-                    trajectoire.get(i).getX(),
-                    trajectoire.get(i).getY());
-        }
-
-
-
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setMaximized(true);
-        Stage secWindow = new Stage();
-        secWindow.setTitle("Graph");
-        secWindow.setScene(new Scene(chart));
-        Scenery.getChartButton().setOnAction(Event->{
-            secWindow.show();
+        Gun currGun = new Gun();
+        Scenery.getShoot().setOnAction(event -> {
+            Bullet currBullet=new Bullet();
+
+            NumberAxis xAxis = new NumberAxis();xAxis.labelProperty().setValue("Distance");
+            NumberAxis yAxis = new NumberAxis();yAxis.labelProperty().setValue("Height");
+
+            Target currTarget=new Target(0.5f,1,scenery.getPositionCible()*50+100);
+
+            XYChart.Series trajectoireChart= getChart(10000,currBullet,currGun);
+            LineChart<Number,Number> chart = new LineChart<Number,Number>(xAxis,yAxis);
+            chart.getData().addAll(trajectoireChart);
+
+
+            for(int i=0;i<trajectoireChart.getData().size()-1;i++){
+                currTarget.isHit(
+                        trajectoire.get(i+1).getX(),
+                        trajectoire.get(i+1).getY(),
+                        trajectoire.get(i).getX(),
+                        trajectoire.get(i).getY());
+            }
+
+
+
+
+            Stage secWindow = new Stage();
+            secWindow.setTitle("Graph");
+            secWindow.setScene(new Scene(chart));
+            Scenery.getChartButton().setOnAction(Event->{
+                secWindow.show();
+            });
+        });
+
+
+
+        Scenery.getAngleXSlider().valueProperty().addListener((observable, oldValue, newValue) -> {
+            currGun.setAngleX(newValue.floatValue());
+        });
+        Scenery.getAngleYSlider().valueProperty().addListener((observable, oldValue, newValue) -> {
+            currGun.setAngleY(newValue.floatValue());
         });
 
     }
@@ -107,9 +118,9 @@ public class Main extends Application {
 
 
 
-
+if (temp+startHeight>=0){
             series.getData().add(new XYChart.Data(i+1,temp+startHeight));
-            trajectoire.add(new XY((double)i+1.0,temp+startHeight));
+            trajectoire.add(new XY((double)i+1.0,temp+startHeight));}
             lastHeight+=temp;
         }
         System.out.println(currYSpeed);
