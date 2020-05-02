@@ -1,7 +1,10 @@
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
@@ -11,7 +14,13 @@ import javafx.scene.transform.Rotate;
 
 public class Scenery {
     private Group root;
-    private static Button graph= new Button();
+    private static Button graph = new Button();
+    private static Slider angleX = new Slider(-45, 45, 0);
+    private static Slider angleY = new Slider(0, 15, 0);
+    private static Button shoot = new Button("Fire in the hole");
+    private int positionCible=0;
+
+
     public Scenery() {
 
         try {
@@ -54,7 +63,7 @@ public class Scenery {
 
             cible.setTranslateX(1277);
             cible.setTranslateY(720);
-            cible.setTranslateZ(-1500);
+            cible.setTranslateZ(-2074);
             cible.setScaleX(2);
             cible.setScaleY(2);
             cible.setScaleZ(2);
@@ -66,7 +75,7 @@ public class Scenery {
             for (int i = 0; i < boutons.length; i++) {
                 FXMLLoader fxmlLoader2 = new FXMLLoader();
                 fxmlLoader2.setLocation(this.getClass().getResource("Objects/panel.fxml"));
-                Label label=new Label(Integer.toString(i));
+                Label label = new Label(Integer.toString(i));
                 boutons[i] = fxmlLoader2.<Group>load();
                 boutons[i].setScaleX(0.1);
                 boutons[i].setScaleY(0.1);
@@ -74,10 +83,12 @@ public class Scenery {
                 boutons[i].setRotationAxis(Rotate.Y_AXIS);
                 boutons[i].setRotate(90);
                 boutons[i].setTranslateX(1274);
-                boutons[i].setTranslateY(715.3+0.25*i);
+                boutons[i].setTranslateY(715.3 + 0.25 * i);
                 boutons[i].setTranslateZ(-2095);
                 boutons[i].setOnMouseClicked(event -> {
-                    cible.setTranslateZ(-2074 + 50*Integer.parseInt(label.getText()));
+                    cible.setTranslateZ(-2074 + 50 * Integer.parseInt(label.getText()));
+                    positionCible=Integer.parseInt(label.getText());
+                    System.out.println(positionCible);
                 });
                 root.getChildren().add(boutons[i]);
             }
@@ -161,7 +172,27 @@ public class Scenery {
             graph.setScaleY(2);
             graph.setText("Afficher la trajectoire");
 
-            root.getChildren().add(graph);
+            angleX.setTranslateX(1300);
+            angleX.setTranslateY(1200);
+            angleX.setBlockIncrement(1);
+            angleX.setShowTickMarks(true);
+            angleX.setMajorTickUnit(15);
+            angleX.setShowTickLabels(true);
+
+            angleY.setTranslateX(1200);
+            angleY.setTranslateY(1100);
+            angleY.setOrientation(Orientation.VERTICAL);
+            angleY.setBlockIncrement(1);
+            angleY.setShowTickMarks(true);
+            angleY.setMajorTickUnit(15);
+            angleY.setShowTickLabels(true);
+
+            shoot.setTranslateX(1700);
+            shoot.setTranslateY(1200);
+            shoot.setScaleX(2);
+            shoot.setScaleY(2);
+            Group controls = new Group(angleX, angleY, graph, shoot);
+            root.getChildren().add(controls);
         } catch (Exception e) {
 
         }
@@ -170,7 +201,24 @@ public class Scenery {
     public Group getScene() {
         return root;
     }
-    public static Button getChartButton(){
+
+    public static Button getChartButton() {
         return graph;
+    }
+
+    public static Slider getAngleXSlider() {
+        return angleX;
+    }
+
+    public static Slider getAngleYSlider() {
+        return angleY;
+    }
+
+    public static Button getShoot() {
+        return shoot;
+    }
+
+    public int getPositionCible() {
+        return positionCible;
     }
 }
