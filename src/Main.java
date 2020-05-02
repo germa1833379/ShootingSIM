@@ -114,8 +114,8 @@ public class Main extends Application {
             double tpmx=(1.0/(currentBullet.getCurrSpeed(totDistTraveled)*Math.cos(Math.toRadians(currentGun.getAngleY())))); //TIME PER METRE X
              timeElapsed += tpmx;
             //Force en descendant
-            float Yforce=9.8f;
-            double variationY=currYSpeed*timeElapsed-(0.5*Yforce*timeElapsed*timeElapsed);
+            float Yforce=-9.8f;
+            double variationY=currYSpeed*timeElapsed+(0.5*Yforce*timeElapsed*timeElapsed);
             if (variationY+startHeight<0){
                 break;
             }
