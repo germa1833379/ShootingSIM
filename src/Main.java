@@ -55,14 +55,13 @@ public class Main extends Application {
         primaryStage.setMaximized(true);
         Gun currGun = new Gun();
         Scenery.getShoot().setOnAction(event -> {
-            Bullet currBullet=new Bullet();
 
             NumberAxis xAxis = new NumberAxis();xAxis.labelProperty().setValue("Distance");
             NumberAxis yAxis = new NumberAxis();yAxis.labelProperty().setValue("Height");
 
             Target currTarget=new Target(0.5f,1,scenery.getPositionCible()*50+100);
 
-            XYChart.Series trajectoireChart= getChart(10000,currBullet,currGun);
+            XYChart.Series trajectoireChart= getChart(2000,Bullet.getG1Bullet(),currGun);
             LineChart<Number,Number> chart = new LineChart<Number,Number>(xAxis,yAxis);
             chart.getData().addAll(trajectoireChart);
 
@@ -102,27 +101,30 @@ public class Main extends Application {
 
 
         float startHeight=1;
-        double tpmx=(1.0/(currentBullet.getSpeed()*Math.cos(Math.toRadians(currentGun.getAngleY())))); //TIME PER METRE X
         float lastHeight=startHeight;
-        float currYSpeed=(float)(Math.sin(Math.toRadians(currentGun.getAngleY()))*currentBullet.getSpeed());
+        float currYSpeed=(float)(Math.sin(Math.toRadians(currentGun.getAngleY()))*currentBullet.getStartSpeed());
 
         series.getData().add(new XYChart.Data(0,startHeight));
         trajectoire.add(new XY(0,startHeight));
 
         double timeElapsed = 0;
+        float totDistTraveled=1; // REFERING TO THE DISTANCE TRAVELLED IN THE AIR STARTS AT 1 BECAUSE OF FOR COMPOSITION
         for(int i=0;i<distanceMax;i++){
+
+            double tpmx=(1.0/(currentBullet.getCurrSpeed(totDistTraveled)*Math.cos(Math.toRadians(currentGun.getAngleY())))); //TIME PER METRE X
              timeElapsed += tpmx;
             //Force en descendant
             float Yforce=9.8f;
-            double temp=currYSpeed*timeElapsed-(0.5*Yforce*timeElapsed*timeElapsed);
-
-
-
-if (temp+startHeight>=0){
-            series.getData().add(new XYChart.Data(i+1,temp+startHeight));
-            trajectoire.add(new XY((double)i+1.0,temp+startHeight));}
-            lastHeight+=temp;
+            double variationY=currYSpeed*timeElapsed-(0.5*Yforce*timeElapsed*timeElapsed);
+            if (variationY+startHeight<0){
+                break;
+            }
+            series.getData().add(new XYChart.Data(i+1,variationY+startHeight));
+            trajectoire.add(new XY((double)i+1.0,variationY+startHeight));
+            totDistTraveled+=1+Math.abs(variationY);
+            lastHeight+=variationY;
         }
+        currentBullet.reset();
         System.out.println(currYSpeed);
         return series;
     }
