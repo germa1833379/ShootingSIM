@@ -98,7 +98,7 @@ public class Scenery {
             for (int i=0;i<boutons.length;i++){
             Label labeldistance =new Label(i*50 +100 +" mètres");
             labeldistance.setTextFill(Color.WHITE);
-            labeldistance.setTranslateX(397);
+            labeldistance.setTranslateX(390);
             labeldistance.setTranslateY(210+94*i);
             //210 à 870 environ
             labeldistance.setScaleX(1.5);
