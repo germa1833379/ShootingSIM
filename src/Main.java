@@ -105,6 +105,7 @@ public class Main extends Application {
         float currYSpeed=(float)(Math.sin(Math.toRadians(currentGun.getAngleY()))*currentBullet.getStartSpeed());
 
         series.getData().add(new XYChart.Data(0,startHeight));
+        trajectoire.clear();
         trajectoire.add(new XY(0,startHeight));
 
         double timeElapsed = 0;
