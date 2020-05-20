@@ -1,5 +1,5 @@
 public class Gun {
-    float angleY=45f;
+    float angleY=0.0f;
     float angleX=0.0f;
 
     public float getAngleY() {
