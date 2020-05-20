@@ -17,7 +17,7 @@ public class Target {
         if(prevX<targetX&&targetX<=x) {
 
             if(targetX==x){
-                if(height-widht<y&&y<height+widht&&widht>y2&&y>-widht){
+                if(height-widht<y&&y<height+widht&&widht>y2&&y2>-widht){
                     JOptionPane.showMessageDialog(null, "Touché ", "Cible", JOptionPane.INFORMATION_MESSAGE);
                     return true;
                 }else
