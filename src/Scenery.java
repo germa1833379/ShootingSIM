@@ -18,8 +18,9 @@ import javafx.scene.transform.Rotate;
 public class Scenery {
 
     public static LineChart<Number,Number> chart;
+    public static LineChart<Number,Number> chart2;
     private Group root;
-    private static Slider angleX = new Slider(-45, 45, 0);
+    private static Slider angleX = new Slider(-3, 3, 0);
     private static Slider angleY = new Slider(0, 0.65, 0);
     private static Button shoot = new Button("Fire in the hole");
     private int positionCible=0;
@@ -182,9 +183,9 @@ public class Scenery {
 
             angleX.setTranslateX(1300);
             angleX.setTranslateY(1200);
-            angleX.setBlockIncrement(1);
+            angleX.setBlockIncrement(0.2);
             angleX.setShowTickMarks(true);
-            angleX.setMajorTickUnit(15);
+            angleX.setMajorTickUnit(0.5);
             angleX.setShowTickLabels(true);
 
             angleY.setTranslateX(1200);
@@ -210,6 +211,15 @@ public class Scenery {
             chart.setTranslateX(1820);
             chart.setTranslateY(870);
             root.getChildren().add(chart);
+
+            NumberAxis xAxis2 = new NumberAxis();
+            NumberAxis yAxis2 = new NumberAxis();
+            yAxis2.labelProperty().setValue("Distance Gauche/Droite");
+            xAxis2.labelProperty().setValue("Distance Profondeur");
+            chart2 =new LineChart<>(xAxis2,yAxis2);
+            chart2.setTranslateX(1820);
+            chart2.setTranslateY(300);
+            root.getChildren().add(chart2);
 
         } catch (Exception e) {
 
