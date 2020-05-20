@@ -55,17 +55,10 @@ public class Main extends Application {
         primaryStage.setMaximized(true);
         Gun currGun = new Gun();
         Scenery.getShoot().setOnAction(event -> {
-
-            NumberAxis xAxis = new NumberAxis();xAxis.labelProperty().setValue("Distance");
-            NumberAxis yAxis = new NumberAxis();yAxis.labelProperty().setValue("Height");
-
+            XYChart.Series trajectoireChart=getChart(2000,Bullet.getG1Bullet(),currGun);
             Target currTarget=new Target(0.5f,1,scenery.getPositionCible()*50+100);
-
-            XYChart.Series trajectoireChart= getChart(2000,Bullet.getG1Bullet(),currGun);
-            LineChart<Number,Number> chart = new LineChart<Number,Number>(xAxis,yAxis);
-            chart.getData().addAll(trajectoireChart);
-
-
+            Scenery.chart.getData().clear();
+            Scenery.chart.getData().addAll(trajectoireChart);
             for(int i=0;i<trajectoireChart.getData().size()-1;i++){
                 currTarget.isHit(
                         trajectoire.get(i+1).getX(),
@@ -73,16 +66,6 @@ public class Main extends Application {
                         trajectoire.get(i).getX(),
                         trajectoire.get(i).getY());
             }
-
-
-
-
-            Stage secWindow = new Stage();
-            secWindow.setTitle("Graph");
-            secWindow.setScene(new Scene(chart));
-            Scenery.getChartButton().setOnAction(Event->{
-                secWindow.show();
-            });
         });
 
 
@@ -105,6 +88,7 @@ public class Main extends Application {
         float currYSpeed=(float)(Math.sin(Math.toRadians(currentGun.getAngleY()))*currentBullet.getStartSpeed());
 
         series.getData().add(new XYChart.Data(0,startHeight));
+        trajectoire.clear();
         trajectoire.add(new XY(0,startHeight));
 
         double timeElapsed = 0;

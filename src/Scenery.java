@@ -1,6 +1,9 @@
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.scene.Group;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
@@ -13,10 +16,11 @@ import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 
 public class Scenery {
+
+    public static LineChart<Number,Number> chart;
     private Group root;
-    private static Button graph = new Button();
     private static Slider angleX = new Slider(-45, 45, 0);
-    private static Slider angleY = new Slider(0, 15, 0);
+    private static Slider angleY = new Slider(0, 0.65, 0);
     private static Button shoot = new Button("Fire in the hole");
     private int positionCible=0;
 
@@ -166,11 +170,7 @@ public class Scenery {
             root.getChildren().add(new AmbientLight(Color.WHITE));*/
 
 
-            graph.setTranslateX(2000);
-            graph.setTranslateY(1200);
-            graph.setScaleX(2);
-            graph.setScaleY(2);
-            graph.setText("Afficher la trajectoire");
+
 
             angleX.setTranslateX(1300);
             angleX.setTranslateY(1200);
@@ -182,17 +182,27 @@ public class Scenery {
             angleY.setTranslateX(1200);
             angleY.setTranslateY(1100);
             angleY.setOrientation(Orientation.VERTICAL);
-            angleY.setBlockIncrement(1);
+            angleY.setBlockIncrement(0.05);
             angleY.setShowTickMarks(true);
-            angleY.setMajorTickUnit(15);
+            angleY.setMajorTickUnit(0.13);
             angleY.setShowTickLabels(true);
 
             shoot.setTranslateX(1700);
             shoot.setTranslateY(1200);
             shoot.setScaleX(2);
             shoot.setScaleY(2);
-            Group controls = new Group(angleX, angleY, graph, shoot);
+            Group controls = new Group(angleX, angleY,  shoot);
             root.getChildren().add(controls);
+
+            NumberAxis xAxis = new NumberAxis();
+            NumberAxis yAxis = new NumberAxis();
+            yAxis.labelProperty().setValue("Height");
+            xAxis.labelProperty().setValue("Distance");
+            chart =new LineChart<>(xAxis,yAxis);
+            chart.setTranslateX(1820);
+            chart.setTranslateY(870);
+            root.getChildren().add(chart);
+
         } catch (Exception e) {
 
         }
@@ -202,9 +212,6 @@ public class Scenery {
         return root;
     }
 
-    public static Button getChartButton() {
-        return graph;
-    }
 
     public static Slider getAngleXSlider() {
         return angleX;
