@@ -16,7 +16,7 @@ public class Scenery {
     private Group root;
     private static Button graph = new Button();
     private static Slider angleX = new Slider(-45, 45, 0);
-    private static Slider angleY = new Slider(0, 15, 0);
+    private static Slider angleY = new Slider(0, 0.65, 0);
     private static Button shoot = new Button("Fire in the hole");
     private int positionCible=0;
 
@@ -88,11 +88,19 @@ public class Scenery {
                 boutons[i].setOnMouseClicked(event -> {
                     cible.setTranslateZ(-2074 + 50 * Integer.parseInt(label.getText()));
                     positionCible=Integer.parseInt(label.getText());
-                    System.out.println(positionCible);
                 });
                 root.getChildren().add(boutons[i]);
             }
-
+            for (int i=0;i<boutons.length;i++){
+            Label labeldistance =new Label(i*50 +100 +" mètres");
+            labeldistance.setTextFill(Color.WHITE);
+            labeldistance.setTranslateX(397);
+            labeldistance.setTranslateY(210+94*i);
+            //210 à 870 environ
+            labeldistance.setScaleX(1.5);
+            labeldistance.setScaleY(1.5);
+            labeldistance.mouseTransparentProperty().setValue(true);
+            root.getChildren().add(labeldistance);}
 
             Sphere cylinder = new Sphere(0.01);
             Material material2 = new PhongMaterial();
@@ -182,9 +190,9 @@ public class Scenery {
             angleY.setTranslateX(1200);
             angleY.setTranslateY(1100);
             angleY.setOrientation(Orientation.VERTICAL);
-            angleY.setBlockIncrement(1);
+            angleY.setBlockIncrement(0.05);
             angleY.setShowTickMarks(true);
-            angleY.setMajorTickUnit(15);
+            angleY.setMajorTickUnit(0.13);
             angleY.setShowTickLabels(true);
 
             shoot.setTranslateX(1700);
