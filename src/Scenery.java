@@ -205,8 +205,8 @@ public class Scenery {
 
             NumberAxis xAxis = new NumberAxis();
             NumberAxis yAxis = new NumberAxis();
-            yAxis.labelProperty().setValue("Height");
-            xAxis.labelProperty().setValue("Distance");
+            yAxis.labelProperty().setValue("Hauteur");
+            xAxis.labelProperty().setValue("Distance en profondeur");
             chart =new LineChart<>(xAxis,yAxis);
             chart.setTranslateX(1820);
             chart.setTranslateY(870);
@@ -214,8 +214,8 @@ public class Scenery {
 
             NumberAxis xAxis2 = new NumberAxis();
             NumberAxis yAxis2 = new NumberAxis();
-            yAxis2.labelProperty().setValue("Distance Gauche/Droite");
-            xAxis2.labelProperty().setValue("Distance Profondeur");
+            yAxis2.labelProperty().setValue("Distance de Gauche et Droite");
+            xAxis2.labelProperty().setValue("Distance en profondeur");
             chart2 =new LineChart<>(xAxis2,yAxis2);
             chart2.setTranslateX(1820);
             chart2.setTranslateY(300);

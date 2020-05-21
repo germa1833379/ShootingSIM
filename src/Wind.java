@@ -1,25 +1,21 @@
 public class Wind {
-    private int forceX;
-    private int forceZ;
+    private static float forceX=0;
+    private static float forceZ=0.1f;
 
-    public Wind(int forceX, int forceZ) {
-        this.forceX = forceX;
-        this.forceZ = forceZ;
+    public Wind(){
+        forceZ=0.1f;
     }
-
-    public int getForceX() {
+    public static float getForceX() {
         return forceX;
     }
 
-    public void setForceX(int forceX) {
-        this.forceX = forceX;
+    public static void setForceX(float input) {
+        forceX = input;
     }
 
-    public int getForceZ() {
+    public static float getForceZ() {
         return forceZ;
     }
 
-    public void setForceZ(int forceZ) {
-        this.forceZ = forceZ;
-    }
+    public static void setForceZ(float input) { forceZ = input;    }
 }

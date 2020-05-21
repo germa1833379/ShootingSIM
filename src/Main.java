@@ -3,15 +3,15 @@ import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
-import javafx.scene.chart.Axis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class Main extends Application {
     ArrayList<XY> trajectoire = new ArrayList<>();
@@ -55,7 +55,27 @@ public class Main extends Application {
         primaryStage.show();
         primaryStage.setMaximized(true);
         Gun currGun = new Gun();
+
+        Scenery.getAngleXSlider().valueProperty().addListener((observable, oldValue, newValue) -> {
+            currGun.setAngleX(newValue.floatValue());
+        });
+        Scenery.getAngleYSlider().valueProperty().addListener((observable, oldValue, newValue) -> {
+            currGun.setAngleY(newValue.floatValue());
+        });
+
         Scenery.getShoot().setOnAction(event -> {
+            //Audio
+            Clip clip = null;
+            try {
+                clip = AudioSystem.getClip();
+                AudioInputStream inputStream = AudioSystem.getAudioInputStream(
+                        Main.class.getResourceAsStream("Sounds/GunShot.wav"));
+                clip.open(inputStream);
+                clip.start();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             //Chart Trajectoire
             XYChart.Series trajectoireChart=getHorizontalChart(2000,Bullet.getG1Bullet(),currGun);
@@ -75,39 +95,36 @@ public class Main extends Application {
             Scenery.chart2.getData().clear();
             Scenery.chart2.getData().addAll(birdEyeChart);
             Scenery.chart2.getData().addAll(cibleSeries2);
-
+            boolean passedTarget=false;
             for(int i=0;i<trajectoireChart.getData().size()-1;i++){
-                currTarget.isHit(
+                if(currTarget.isHit(
                         trajectoire.get(i+1).getX(),
                         trajectoire.get(i+1).getY(),
                         trajectoire.get(i).getX(),
                         trajectoire.get(i).getY(),
                         trajectoire2.get(i+1).getY(),
                         trajectoire2.get(i).getY()
-                        );
+                        )){
+                    passedTarget=true;
+                    }
+            }
+            if (!passedTarget){
+                JOptionPane.showMessageDialog(null, "Pas touché ", "Cible", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
 
 
-        Scenery.getAngleXSlider().valueProperty().addListener((observable, oldValue, newValue) -> {
-            currGun.setAngleX(newValue.floatValue());
-        });
-        Scenery.getAngleYSlider().valueProperty().addListener((observable, oldValue, newValue) -> {
-            currGun.setAngleY(newValue.floatValue());
-        });
-
     }
     int maxX;
     public XYChart.Series getHorizontalChart(int distanceMax,Bullet currentBullet,Gun currentGun){
         XYChart.Series series = new XYChart.Series();
-        series.setName("Trajectory");
+        series.setName("Trajectoire et Hauteur");
 
 
         float startHeight=1;
         float lastHeight=startHeight;
-        float currYSpeed=(float)(Math.sin(Math.toRadians(currentGun.getAngleY()))*currentBullet.getStartSpeed());
-
+        float currYSpeed=(float)((Math.sin(Math.toRadians(currentGun.getAngleY()))*currentBullet.getStartSpeed()));
         series.getData().add(new XYChart.Data(0,startHeight));
         trajectoire.clear();
         trajectoire.add(new XY(0,startHeight));
@@ -115,8 +132,9 @@ public class Main extends Application {
         double timeElapsed = 0;
         float totDistTraveled=1; // REFERING TO THE DISTANCE TRAVELLED IN THE AIR STARTS AT 1 BECAUSE OF FOR COMPOSITION
         for(int i=0;i<distanceMax;i++){
-
-            double tpmx=(1.0/(currentBullet.getCurrSpeed(totDistTraveled)*Math.cos(Math.toRadians(currentGun.getAngleY())*Math.cos(Math.toRadians(currentGun.getAngleX()))))); //TIME PER METRE X
+            double wtf =Math.cos(Math.toRadians(currentGun.getAngleX()));
+            double tpmx=(1.0/((currentBullet.getCurrSpeed(totDistTraveled)*Math.cos(Math.toRadians(currentGun.getAngleY())))*wtf
+                    +Wind.getForceZ()*timeElapsed)); //TIME PER METRE X
             timeElapsed += tpmx;
             //Force en descendant
             float Yforce=-9.8f;
@@ -137,7 +155,7 @@ public class Main extends Application {
         XYChart.Series series = new XYChart.Series();
         series.setName("Bird Eye View");
 
-
+        float totDistTraveled=1;
         float startHeight=0;
         float lastHeight=startHeight;
         float currYSpeed=(float)(Math.sin(Math.toRadians(currentGun.getAngleX()))*currentBullet.getStartSpeed());
@@ -150,14 +168,14 @@ public class Main extends Application {
         for(int i=0;i<distanceMax;i++){
             if(i>=maxX)
                 break;
-            double tpmx=(1.0/(currentBullet.getStartSpeed()*Math.cos(Math.toRadians(currentGun.getAngleY()))*Math.cos(Math.toRadians(currentGun.getAngleX())))); //TIME PER METRE X
+            double tpmx=(1.0/(currentBullet.getStartSpeed()*Math.cos(Math.toRadians(currentGun.getAngleY()))*Math.cos(Math.toRadians(currentGun.getAngleX()))
+                    +Wind.getForceX()*timeElapsed)); //TIME PER METRE X
             timeElapsed += tpmx;
             //Force en descendant
-            float Yforce=0f;
+            float Yforce=Wind.getForceX();
             double variationY=currYSpeed*timeElapsed+(0.5*Yforce*timeElapsed*timeElapsed);
             series.getData().add(new XYChart.Data(i+1,variationY+startHeight));
             trajectoire2.add(new XY((double)i+1.0,variationY+startHeight));
-
             lastHeight+=variationY;
 
         }
