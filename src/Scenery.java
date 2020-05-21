@@ -3,16 +3,13 @@ import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.MeshView;
-import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 
 public class Scenery {
@@ -55,14 +52,6 @@ public class Scenery {
                 panneaux[i].setTranslateZ(-2074 + 50 * i);
                 root.getChildren().add(panneaux[i]);
             }
-            /*Label distance=new Label("allo");
-            distance.setTranslateX(1280);
-            distance.setTranslateY(710);
-            distance.setTranslateZ(-2080);
-            distance
-
-            root.getChildren().add(distance);*/
-
             Group cible;
             FXMLLoader fxmlLoader3 = new FXMLLoader();
             fxmlLoader3.setLocation(this.getClass().getResource("Objects/cible.fxml"));
@@ -110,54 +99,7 @@ public class Scenery {
                 root.getChildren().add(labeldistance);
             }
 
-            Sphere cylinder = new Sphere(0.01);
-            Material material2 = new PhongMaterial();
-            ((PhongMaterial) material2).setSpecularColor(Color.rgb(30, 200, 30));
-            cylinder.setMaterial(material2);
-            cylinder.setTranslateX(1280.15);
-            cylinder.setTranslateY(715.9);
-            cylinder.setTranslateZ(-2001);
-            root.getChildren().add(cylinder);
-
-            Sphere cylinde2r = new Sphere(0.01);
-            Material material3 = new PhongMaterial();
-            ((PhongMaterial) material3).setSpecularColor(Color.rgb(30, 200, 30));
-            cylinde2r.setMaterial(material3);
-            cylinde2r.setTranslateX(1278.15);
-            cylinde2r.setTranslateY(715.9);
-            cylinde2r.setTranslateZ(-2001);
-            root.getChildren().add(cylinde2r);
-
-            Sphere cylinde4r = new Sphere(0.01);
-            Material material5 = new PhongMaterial();
-            ((PhongMaterial) material5).setSpecularColor(Color.rgb(30, 200, 30));
-            cylinde4r.setMaterial(material5);
-            cylinde4r.setTranslateX(1282.15);
-            cylinde4r.setTranslateY(715.9);
-            cylinde4r.setTranslateZ(-2001);
-            root.getChildren().add(cylinde4r);
-
-            Sphere cylinde3r = new Sphere(0.01);
-            Material material4 = new PhongMaterial();
-            ((PhongMaterial) material4).setSpecularColor(Color.rgb(30, 200, 30));
-            cylinde3r.setMaterial(material4);
-            cylinde3r.setTranslateX(1280.15);
-            cylinde3r.setTranslateY(713.9);
-            cylinde3r.setTranslateZ(-2001);
-            root.getChildren().add(cylinde3r);
-
-            Sphere cylinde5r = new Sphere(0.01);
-            Material material6 = new PhongMaterial();
-            ((PhongMaterial) material6).setSpecularColor(Color.rgb(30, 200, 30));
-            cylinde5r.setMaterial(material6);
-            cylinde5r.setTranslateX(1280.15);
-            cylinde5r.setTranslateY(717.9);
-            cylinde5r.setTranslateZ(-2001);
-            root.getChildren().add(cylinde5r);
-
-
             Material material = new PhongMaterial();
-
 
             ((PhongMaterial) material).setSpecularColor(Color.rgb(30, 30, 30));
             sol.setMaterial(material);
@@ -172,17 +114,6 @@ public class Scenery {
             sol.setScaleX(1);
             sol.setScaleY(1);
             sol.setScaleZ(1);
-
-
-            /*PointLight light = new PointLight(Color.WHITE);
-            light.setTranslateX(0);
-            light.setTranslateY(-3000);
-            light.setTranslateZ(-1600);
-            root.getChildren().add(light);
-            root.getChildren().add(new AmbientLight(Color.WHITE));*/
-
-
-
 
             angleX.setTranslateX(1300);
             angleX.setTranslateY(1200);

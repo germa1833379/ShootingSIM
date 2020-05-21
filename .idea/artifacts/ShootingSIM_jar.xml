@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ShootingSIM:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ShootingSIM_jar</output-path>
+    <root id="archive" name="ShootingSIM.jar">
+      <element id="module-output" name="ShootingSIM" />
+    </root>
+  </artifact>
+</component>
