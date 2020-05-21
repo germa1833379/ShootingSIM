@@ -20,11 +20,11 @@ public class Scenery {
     public static LineChart<Number,Number> chart;
     public static LineChart<Number,Number> chart2;
     private Group root;
-    private static Slider angleX = new Slider(-3, 3, 0);
-    private static Slider angleY = new Slider(0, 0.65, 0);
+    private static Slider angleX = new Slider(-1, 1, 0);
+    private static Slider angleY = new Slider(0, 0.62, 0);
     private static Button shoot = new Button("Fire in the hole");
-    private static Slider ventX = new Slider(-100, 100, 0);
-    private static Slider ventZ = new Slider(-100, 100, 0);
+    private static Slider ventX = new Slider(-15, 15, 0);
+    private static Slider ventZ = new Slider(-15, 15, 0);
     private int positionCible = 0;
 
 
@@ -196,22 +196,22 @@ public class Scenery {
             angleY.setOrientation(Orientation.VERTICAL);
             angleY.setBlockIncrement(0.05);
             angleY.setShowTickMarks(true);
-            angleY.setMajorTickUnit(0.13);
+            angleY.setMajorTickUnit(0.1);
             angleY.setShowTickLabels(true);
 
             ventX.setTranslateX(500);
             ventX.setTranslateY(1200);
-            ventX.setBlockIncrement(1);
+            ventX.setBlockIncrement(3);
             ventX.setShowTickMarks(true);
-            ventX.setMajorTickUnit(20);
+            ventX.setMajorTickUnit(5);
             ventX.setShowTickLabels(true);
 
             ventZ.setTranslateX(400);
             ventZ.setTranslateY(1100);
             ventZ.setOrientation(Orientation.VERTICAL);
-            ventZ.setBlockIncrement(1);
+            ventZ.setBlockIncrement(3);
             ventZ.setShowTickMarks(true);
-            ventZ.setMajorTickUnit(20);
+            ventZ.setMajorTickUnit(5);
             ventZ.setShowTickLabels(true);
 
             shoot.setTranslateX(1700);

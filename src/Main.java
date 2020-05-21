@@ -30,7 +30,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Wind wind = new Wind(0, 0);
         //Scene
         Camera camera=new PerspectiveCamera();
         camera.setNearClip(0);
@@ -136,10 +135,10 @@ public class Main extends Application {
             currGun.setAngleY(newValue.floatValue());
         });
         Scenery.getVentX().valueProperty().addListener((observable, oldValue, newValue) -> {
-            wind.setForceX(newValue.intValue());
+            Wind.setForceX(newValue.intValue());
         });
         Scenery.getVentZ().valueProperty().addListener((observable, oldValue, newValue) -> {
-            wind.setForceZ(newValue.intValue());
+            Wind.setForceZ(newValue.intValue());
         });
 
     }
