@@ -17,8 +17,8 @@ import javafx.scene.transform.Rotate;
 
 public class Scenery {
 
-    public static LineChart<Number, Number> chart;
-    public static LineChart<Number, Number> chart2;
+    public static LineChart<Number,Number> chart;
+    public static LineChart<Number,Number> chart2;
     private Group root;
     private static Slider angleX = new Slider(-3, 3, 0);
     private static Slider angleY = new Slider(0, 0.65, 0);
@@ -182,6 +182,8 @@ public class Scenery {
             root.getChildren().add(new AmbientLight(Color.WHITE));*/
 
 
+
+
             angleX.setTranslateX(1300);
             angleX.setTranslateY(1200);
             angleX.setBlockIncrement(0.2);
@@ -221,18 +223,18 @@ public class Scenery {
 
             NumberAxis xAxis = new NumberAxis();
             NumberAxis yAxis = new NumberAxis();
-            yAxis.labelProperty().setValue("Height");
-            xAxis.labelProperty().setValue("Distance");
-            chart = new LineChart<>(xAxis, yAxis);
+            yAxis.labelProperty().setValue("Hauteur");
+            xAxis.labelProperty().setValue("Distance en profondeur");
+            chart =new LineChart<>(xAxis,yAxis);
             chart.setTranslateX(1820);
             chart.setTranslateY(870);
             root.getChildren().add(chart);
 
             NumberAxis xAxis2 = new NumberAxis();
             NumberAxis yAxis2 = new NumberAxis();
-            yAxis2.labelProperty().setValue("Distance Gauche/Droite");
-            xAxis2.labelProperty().setValue("Distance Profondeur");
-            chart2 = new LineChart<>(xAxis2, yAxis2);
+            yAxis2.labelProperty().setValue("Distance de Gauche et Droite");
+            xAxis2.labelProperty().setValue("Distance en profondeur");
+            chart2 =new LineChart<>(xAxis2,yAxis2);
             chart2.setTranslateX(1820);
             chart2.setTranslateY(300);
             root.getChildren().add(chart2);

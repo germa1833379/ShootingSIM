@@ -19,9 +19,9 @@ public class Target {
             if(targetX==x){
                 if(height-widht<y&&y<height+widht&&widht>y2&&y2>-widht){
                     JOptionPane.showMessageDialog(null, "Touché ", "Cible", JOptionPane.INFORMATION_MESSAGE);
-                    return true;
-                }else
+                }else {
                     JOptionPane.showMessageDialog(null, "Pas touché ", "Cible", JOptionPane.INFORMATION_MESSAGE);
+                }
             }else if(prevX<targetX&&targetX<x){
 
                 double tv = (y - prevY) / (x - prevX);
@@ -33,10 +33,10 @@ public class Target {
                 if(height-widht<hity&&hity<height+widht&&widht>hity2&&hity2>-widht){
                     JOptionPane.showMessageDialog(null, "Touché ", "Cible", JOptionPane.INFORMATION_MESSAGE);
                     Main.hitHeight=(float)hity;
-                    return true;
-                }else
+                }else {
                     JOptionPane.showMessageDialog(null, "Pas touché ", "Cible", JOptionPane.INFORMATION_MESSAGE);
-            }
+                }
+            }return true;
         }
         return false;
     }
