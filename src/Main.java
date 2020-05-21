@@ -92,7 +92,7 @@ public class Main extends Application {
 
             //Chart Trajectoire
             XYChart.Series trajectoireChart=getHorizontalChart(2000,Bullet.getG1Bullet(),currGun);
-            Target currTarget=new Target(0.5f,1,scenery.getPositionCible()*50+100);
+            Target currTarget=new Target(0.5f,1,scenery.getPositionCible()*100+100);
             XYChart.Series cibleSeries= new XYChart.Series();
             cibleSeries.setName("Cible");
             cibleSeries.getData().add(new XYChart.Data(currTarget.getTargetX(),currTarget.getHeight()+currTarget.getWidht()));
