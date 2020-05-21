@@ -64,6 +64,10 @@ public class Main extends Application {
         primaryStage.setMaximized(true);
         Gun currGun = new Gun();
 
+        root.setOnMouseClicked(event -> {
+            fixingView(camera);
+        });
+
         Scenery.getAngleXSlider().valueProperty().addListener((observable, oldValue, newValue) -> {
             currGun.setAngleX(newValue.floatValue());
         });
